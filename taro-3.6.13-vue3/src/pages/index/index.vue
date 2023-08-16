@@ -22,29 +22,16 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 import './index.less'
 import Taro from '@tarojs/taro'
+
 export default {
-  data() {
-    return {
-      orderOfLifetime: '', // 生命周期顺序
-      successApis: '', // 成功 Api 列表
-    }
-  },
-  onLoad() {
-    this.orderOfLifetime += `onLoad:${Date.now()},`
-  },
-  onReady() {
-    this.orderOfLifetime += `onReady:${Date.now()},`
-  },
-  onShow() {
-    this.orderOfLifetime += `onShow:${Date.now()},`
-  },
-  onHide() {
-    this.orderOfLifetime += `onHide:${Date.now()},`
-  },
-  methods: {
-    handleTap(apiName) {
+  setup() {
+    const msg = ref('Hello world')
+    const orderOfLifetime = ref('')
+    const successApis = ref('')
+    function handleTap(apiName) {
       if (apiName === 'getSystemInfoSync') {
         const value = Taro.getSystemInfoSync()
         if (value) {
@@ -57,7 +44,7 @@ export default {
         })
       }
       if (apiName === 'navigateTo') {
-        Taro.navigateTo({ url: '/pages/log/index' }).then(() => {
+        Taro.navigateTo({ url: 'pages/log/index' }).then(() => {
           this.successApis += 'navigateTo,'
         })
       }
@@ -72,7 +59,25 @@ export default {
           }
         })
       }
-    },
+    }
+    return {
+      msg,
+      orderOfLifetime, // 生命周期顺序
+      successApis, // 成功 Api 列表
+      handleTap,
+    }
+  },
+  onLoad() {
+    this.orderOfLifetime += `onLoad:${Date.now()},`
+  },
+  onReady() {
+    this.orderOfLifetime += `onReady:${Date.now()},`
+  },
+  onShow() {
+    this.orderOfLifetime += `onShow:${Date.now()},`
+  },
+  onHide() {
+    this.orderOfLifetime += `onHide:${Date.now()},`
   },
 }
 </script>
