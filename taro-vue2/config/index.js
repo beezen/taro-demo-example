@@ -18,7 +18,48 @@ export default defineConfig(async (merge, { command, mode }) => {
     },
     sourceRoot: 'src',
     outputRoot: 'dist',
-    plugins: [],
+    plugins: [
+      [
+        "@tarojs/plugin-inject",
+        {
+          components: {
+            PdfPreview: {
+              'src': "''",
+              'height': "",
+              'force-read': '',
+              'count-down-time': '',
+              'confirm-bg-image': "",
+              'cross-origin': "",
+              'bindReadFinish': 'eh',
+              'bindError': 'eh'
+            },
+            // 为 Swiper 组件新增了 'touch-state' 属性
+            Swiper: {
+              "touch-direction-enabled": "''"
+            },
+            Input: {
+              "is-native": "''",
+              "cycle-time": "''",
+              "lock-time": "''"
+            },
+            Textarea: {
+              "cycle-time": "''",
+              "lock-time": "''"
+            },
+            // 为 GmuOverlay 组件新增了 'backgroundColor' 和 ‘opacity’ 属性
+            GmuOverlay: {
+              'backgroundColor': "''",
+              'opacity': ""
+            }
+          },
+          // 新增的组件需要写映射
+          componentsMap: {
+            GmuOverlay: 'gmu-overlay',
+            PdfPreview: 'pdf-preview'
+          }
+        }
+      ]
+    ],
     defineConstants: {},
     copy: {
       patterns: [],

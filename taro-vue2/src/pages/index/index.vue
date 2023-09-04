@@ -18,6 +18,7 @@
     <view class="pre">{{ successApis }}</view>
     <view>*****生命周期*****</view>
     <view class="pre">{{ orderOfLifetime }}</view>
+    <pdf-comp>pdf组件</pdf-comp>
   </view>
 </template>
 
